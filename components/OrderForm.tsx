@@ -119,7 +119,7 @@ export default function OrderForm(props: {
       <button className="btn" disabled={!valid || loading}>
         {loading ? 'Redirection vers le paiement…' : `Payer ${euros(total)} et réserver`}
       </button>
-      <div className="secure">🔒 Paiement sécurisé par carte via Stancer</div>
+      <div className="secure">🔒 Paiement sécurisé via Revolut · Revolut Pay, carte, Apple Pay, Google Pay</div>
       {error && <div className="error" role="alert">{error}</div>}
     </form>
   );

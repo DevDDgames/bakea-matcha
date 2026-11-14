@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db, getSettings, supabaseConfigured } from '@/lib/supabase-server';
-import { createPaymentIntent } from '@/lib/stancer';
+import { createRevolutOrder } from '@/lib/revolut';
 import { orderRef } from '@/lib/dates';
 import { Order } from '@/lib/types';
 
@@ -14,7 +14,7 @@ const ERRORS: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
-  if (!supabaseConfigured() || !process.env.STANCER_SECRET_KEY) {
+  if (!supabaseConfigured() || !process.env.REVOLUT_SECRET_KEY) {
     return NextResponse.json({ error: 'Le paiement n’est pas encore configuré.' }, { status: 503 });
   }
   const b = await req.json().catch(() => ({}));
@@ -49,18 +49,22 @@ export async function POST(req: Request) {
   }
   const order = data as Order;
 
-  // 2) Paiement Stancer
+  // 2) Paiement Revolut (page hébergée)
   try {
     const s = await getSettings();
     const site = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin;
-    const pi = await createPaymentIntent({
+    const ref = orderRef(order.number);
+    const payment = await createRevolutOrder({
       amount: order.amount_cents,
-      description: `Bakea ${orderRef(order.number)} ${order.quantity}x ${s.product_name}`,
+      description: `Bakea ${ref} · ${order.quantity} × ${s.product_name} · retrait ${order.pickup_date}`,
+      reference: ref,
       orderId: order.id,
-      returnUrl: `${site}/commande/${order.id}`,
+      email: order.email,
+      fullName: `${order.first_name} ${order.last_name}`,
+      redirectUrl: `${site}/commande/${order.id}`,
     });
-    await db().from('orders').update({ stancer_payment_id: pi.id }).eq('id', order.id);
-    return NextResponse.json({ url: pi.url });
+    await db().from('orders').update({ payment_id: payment.id }).eq('id', order.id);
+    return NextResponse.json({ url: payment.checkout_url });
   } catch (e) {
     console.error(e);
     await db().from('orders').update({ status: 'annule', note: 'Erreur création paiement' }).eq('id', order.id);

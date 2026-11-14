@@ -21,7 +21,7 @@ export default function Page() {
       <p>Les prix sont indiqués en euros toutes taxes comprises (TVA incluse). Aucun frais de livraison : le produit est à retirer en boutique.</p>
 
       <h2>5. Commande et paiement</h2>
-      <p>Le client choisit son jour de retrait, la quantité, indique ses coordonnées, accepte les CGV puis paie par carte bancaire sur la page sécurisée de Stancer. La commande n’est ferme qu’après acceptation du paiement ; un email de confirmation récapitulant la commande et la date de retrait est alors envoyé.</p>
+      <p>Le client choisit son jour de retrait, la quantité, indique ses coordonnées, accepte les CGV puis paie sur la page sécurisée de Revolut (Revolut Pay, carte bancaire, Apple Pay ou Google Pay). La commande n’est ferme qu’après acceptation du paiement ; un email de confirmation récapitulant la commande et la date de retrait est alors envoyé.</p>
 
       <h2>6. Retrait — pas de livraison</h2>
       <p>La commande est <b>uniquement à retirer</b> chez Bakea, 3 rue de Lancry, 75010 Paris, le jour choisi (parmi les dates proposées, du mardi au dimanche) aux horaires d’ouverture. Le client présente l’email de confirmation ou son numéro de commande. Aucune livraison ni envoi postal n’est possible.</p>

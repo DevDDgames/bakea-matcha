@@ -137,7 +137,7 @@ function Orders({ session }: { session: Session }) {
   }, [orders, q, status, day, sort]);
 
   async function setOrderStatus(o: Order, s: OrderStatus) {
-    if (s === 'annule' && !confirm(`Annuler la commande ${orderRef(o.number)} ? (le remboursement se fait depuis Stancer)`)) return;
+    if (s === 'annule' && !confirm(`Annuler la commande ${orderRef(o.number)} ? (le remboursement se fait depuis Revolut Business)`)) return;
     const { data, error } = await browserDb().from('orders').update({ status: s }).eq('id', o.id).select('*').single();
     if (error) return alert(error.message);
     setOrders((list) => list.map((x) => (x.id === o.id ? (data as Order) : x)));

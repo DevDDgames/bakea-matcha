@@ -35,7 +35,7 @@ export type Order = {
   amount_cents: number;
   pickup_date: string;
   status: OrderStatus;
-  stancer_payment_id: string | null;
+  payment_id: string | null;
   paid_at: string | null;
   email_sent_at: string | null;
   note: string | null;

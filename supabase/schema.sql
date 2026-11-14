@@ -67,7 +67,7 @@ create table if not exists public.orders (
   pickup_date date not null,
   status text not null default 'en_attente_paiement'
     check (status in ('en_attente_paiement', 'a_recuperer', 'termine', 'annule')),
-  stancer_payment_id text,
+  payment_id text, -- id de la commande Revolut
   paid_at timestamptz,
   email_sent_at timestamptz,
   note text

@@ -1,22 +1,21 @@
 import 'server-only';
 import { db, getSettings } from './supabase-server';
-import { capturePaymentIntent, FAILED, getPaymentIntent, PAID } from './stancer';
+import { FAILED, getRevolutOrder, PAID } from './revolut';
 import { sendConfirmation } from './mail';
 import { Order } from './types';
 
 /**
- * Vérifie le paiement Stancer d'une commande en attente et la passe « à récupérer »
+ * Vérifie le paiement Revolut d'une commande en attente et la passe « à récupérer »
  * (puis envoie le mail une seule fois). Idempotent : peut être appelé plusieurs fois.
  */
 export async function syncPayment(orderId: string): Promise<Order | null> {
   const { data: order } = await db().from('orders').select('*').eq('id', orderId).maybeSingle<Order>();
   if (!order) return null;
-  if (order.status !== 'en_attente_paiement' || !order.stancer_payment_id) return order;
+  if (order.status !== 'en_attente_paiement' || !order.payment_id) return order;
 
-  let pi = await getPaymentIntent(order.stancer_payment_id);
-  if (pi.status === 'authorized') pi = await capturePaymentIntent(pi.id).catch(() => pi);
+  const payment = await getRevolutOrder(order.payment_id);
 
-  if (PAID.includes(pi.status) || pi.status === 'authorized') {
+  if (PAID.includes(payment.state)) {
     // Le filtre sur le statut garantit qu'un seul appel « gagne » (pas de double mail).
     const { data: updated } = await db()
       .from('orders')
@@ -29,7 +28,7 @@ export async function syncPayment(orderId: string): Promise<Order | null> {
     return sendAndMark(updated);
   }
 
-  if (FAILED.includes(pi.status)) {
+  if (FAILED.includes(payment.state)) {
     const { data } = await db().from('orders').update({ status: 'annule' }).eq('id', orderId).select('*').single<Order>();
     return data;
   }

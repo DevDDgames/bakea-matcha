@@ -21,7 +21,7 @@ export default function Page() {
         Données : Supabase Inc., 970 Toa Payoh North #07-04, Singapour — supabase.com (serveurs dans l’Union européenne)
       </p>
       <h2>Paiement</h2>
-      <p>Les paiements sont traités par Stancer, établissement de paiement agréé (groupe Iliad). Bakea n’a jamais accès à vos données bancaires.</p>
+      <p>Les paiements sont traités par Revolut Bank UAB, établissement de crédit agréé (Revolut Business, Merchant API). Bakea n’a jamais accès à vos données bancaires.</p>
       <h2>Propriété intellectuelle</h2>
       <p>Les textes, logos et photos de ce site appartiennent à Bakea. Toute reproduction sans autorisation est interdite.</p>
     </main>

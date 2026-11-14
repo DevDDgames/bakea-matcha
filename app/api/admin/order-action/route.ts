@@ -5,7 +5,7 @@ import { Order } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 
-// Actions admin qui nécessitent le serveur : vérifier un paiement Stancer, renvoyer le mail.
+// Actions admin qui nécessitent le serveur : vérifier un paiement Revolut, renvoyer le mail.
 export async function POST(req: Request) {
   if (!(await requireAdmin(req))) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
   const { id, action } = await req.json();
