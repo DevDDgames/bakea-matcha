@@ -2,8 +2,13 @@
 export default function CoverArt() {
   return (
     <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Pot de pâte à tartiner matcha Bakea">
+      <defs>
+        <mask id="bakea-logo" style={{ maskType: 'alpha' }}>
+          <image href="/logo.png" x="122" y="28" width="156" height="57.5" />
+        </mask>
+      </defs>
       <rect width="400" height="400" fill="#f6efe1" />
-      <text x="200" y="74" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontWeight="900" fontSize="58" fill="#ff4a1c" letterSpacing="-2" style={{ fontVariationSettings: "'SOFT' 100" }}>bakea</text>
+      <rect x="122" y="28" width="156" height="58" fill="#ff4a1c" mask="url(#bakea-logo)" />
       {/* pot */}
       <g transform="translate(200 230)">
         <ellipse cx="0" cy="92" rx="92" ry="12" fill="#2a1d12" opacity=".08" />

@@ -1,4 +1,5 @@
 import { getReserved, getSettings } from '@/lib/supabase-server';
+import { SITE_URL } from '@/lib/site';
 import { dayNum, euros, longDate, monthName, OPENING_HOURS, pickupDays, weekday } from '@/lib/dates';
 import { SHOP } from '@/lib/types';
 import CoverArt from '@/components/CoverArt';
@@ -29,21 +30,52 @@ export default async function Home() {
     ['Fabriqué par', s.producer],
   ].filter(([, v]) => v && v.trim()) as [string, string][];
 
+  const site = SITE_URL;
+  const totalLeft = days.reduce((n, d) => n + d.remaining, 0);
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Product',
+        name: `${s.product_name} — Bakea`,
+        description: s.description.replace(/\s*\[[^\]]*\]/g, ''),
+        image: [s.product_image_url || `${site}/og.jpg`, ...s.gallery.filter(Boolean)],
+        brand: { '@type': 'Brand', name: 'Bakea' },
+        offers: {
+          '@type': 'Offer',
+          url: `${site}/`,
+          priceCurrency: 'EUR',
+          price: (s.price_cents / 100).toFixed(2),
+          availability: s.sales_open && totalLeft > 0 ? 'https://schema.org/PreOrder' : 'https://schema.org/SoldOut',
+          availableDeliveryMethod: 'https://schema.org/OnSitePickup',
+          seller: { '@type': 'Organization', name: 'Bakea' },
+        },
+      },
+      {
+        '@type': 'CafeOrCoffeeShop',
+        name: 'Bakea',
+        description: 'Coffee shop à impact positif',
+        image: `${site}/og.jpg`,
+        url: `${site}/`,
+        sameAs: [SHOP.instagram],
+        address: { '@type': 'PostalAddress', streetAddress: '3 rue de Lancry', postalCode: '75010', addressLocality: 'Paris', addressCountry: 'FR' },
+        openingHoursSpecification: [
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday', 'Wednesday', 'Friday'], opens: '09:00', closes: '18:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Thursday', opens: '13:00', closes: '18:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '10:00', closes: '18:30' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '10:00', closes: '18:00' },
+        ],
+      },
+    ],
+  };
+
   return (
     <main className="page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       {/* ---------- Colonne gauche ---------- */}
-      <aside className="side">
+      <aside className="side side-top">
         <div className="cover">
           {s.product_image_url ? <img src={s.product_image_url} alt={s.product_name} /> : <CoverArt />}
-        </div>
-
-        <div className="host">
-          <div className="host-avatar">bakea</div>
-          <div>
-            <small>Présenté par</small>
-            <strong>Bakea</strong>
-          </div>
-          <a className="follow" href={SHOP.instagram} target="_blank" rel="noreferrer">Suivre</a>
         </div>
 
         <div className="side-section">
@@ -67,7 +99,7 @@ export default async function Home() {
       </aside>
 
       {/* ---------- Colonne principale ---------- */}
-      <section>
+      <section className="main-col">
         <h1 className="title">
           {titleMain.trim()}
           {titleAt !== undefined && <> <em>@{titleAt.trim()}</em></>}
@@ -117,27 +149,6 @@ export default async function Home() {
         </div>
 
         <div className="section">
-          <h2>À propos</h2>
-          <div className="prose">
-            {s.intro.split(/\n{2,}/).map((p, i) => <p key={i}>{p}</p>)}
-            {s.description && <p>{s.description}</p>}
-          </div>
-        </div>
-
-        <div className="section">
-          <h2>Photos</h2>
-          <div className="gallery">
-            {photos.map((url, i) =>
-              url ? (
-                <div className="ph filled" key={i}><img src={url} alt={`${s.product_name} — photo ${i + 1}`} /></div>
-              ) : (
-                <div className="ph" key={i}>{hasPhotos ? '' : `Photo ${i + 1}`}</div>
-              ),
-            )}
-          </div>
-        </div>
-
-        <div className="section">
           <h2>Fiche produit</h2>
           <table className="spec">
             <tbody>
@@ -157,6 +168,29 @@ export default async function Home() {
           </p>
         </div>
       </section>
+
+      <aside className="side side-bottom">
+        <div className="section">
+          <h2>À propos</h2>
+          <div className="prose">
+            {s.intro.split(/\n{2,}/).map((p, i) => <p key={i}>{p}</p>)}
+            {s.description && <p>{s.description}</p>}
+          </div>
+        </div>
+
+        <div className="section">
+          <h2>Photos</h2>
+          <div className="gallery">
+            {photos.map((url, i) =>
+              url ? (
+                <div className="ph filled" key={i}><img src={url} alt={`${s.product_name} — photo ${i + 1}`} /></div>
+              ) : (
+                <div className="ph" key={i}>{hasPhotos ? '' : `Photo ${i + 1}`}</div>
+              ),
+            )}
+          </div>
+        </div>
+      </aside>
     </main>
   );
 }

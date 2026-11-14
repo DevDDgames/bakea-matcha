@@ -1,5 +1,6 @@
 import 'server-only';
 import nodemailer from 'nodemailer';
+import { SITE_URL } from './site';
 import { Order, SHOP } from './types';
 import { euros, longDate, OPENING_HOURS, orderRef, weekday } from './dates';
 
@@ -44,7 +45,7 @@ ${siteUrl}`;
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6efe1;padding:32px 12px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fffaf0;border-radius:20px;overflow:hidden;border:1px solid #eadfcb">
 <tr><td style="padding:28px 28px 8px;text-align:center">
-  <div style="font-family:Georgia,'Times New Roman',serif;font-size:44px;font-weight:900;color:#ff4a1c;letter-spacing:-1px;line-height:1">bakea</div>
+  <img src="${siteUrl}/logo.png" width="130" alt="bakea" style="display:inline-block;width:130px;height:auto;border:0">
   <div style="font-family:Georgia,serif;font-style:italic;color:#ff4a1c;font-size:16px;margin-top:6px">Coffee shop à impact positif</div>
 </td></tr>
 <tr><td style="padding:16px 28px 0">
@@ -76,7 +77,7 @@ ${siteUrl}`;
 }
 
 export async function sendConfirmation(o: Order, productName: string) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+  const siteUrl = SITE_URL;
   const { subject, text, html } = confirmationEmail(o, productName, siteUrl);
   await transport().sendMail({
     from: `"Bakea" <${process.env.GMAIL_USER}>`,

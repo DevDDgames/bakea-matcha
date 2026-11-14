@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { dayNum, euros, longDate, weekday } from '@/lib/dates';
+import { dayNum, euros, longDate, monthName, weekday } from '@/lib/dates';
 
 // Colonnes du calendrier : mardi → dimanche (fermé le lundi)
 const COLS = ['mar', 'mer', 'jeu', 'ven', 'sam', 'dim'];
@@ -88,6 +88,9 @@ export default function OrderForm(props: {
       </div>
 
       <span className="label">1. Jour de retrait</span>
+      <div className="cal-month">
+        {[...new Set(days.map((d) => `${monthName(d.date)} ${d.date.slice(0, 4)}`))].join(' – ')}
+      </div>
       <div className="days" role="radiogroup" aria-label="Jour de retrait">
         {COLS.map((c) => <div className="dow" key={c}>{c}</div>)}
         {days.map((d) => (
@@ -108,6 +111,7 @@ export default function OrderForm(props: {
         ))}
       </div>
       <div className="day-info">
+        {!selected ? <span style={{ color: 'var(--muted)' }}>Choisissez votre jour de retrait</span> : null}
         {selected ? `Retrait le ${longDate(selected.date)}, entre ${selected.hours}` + (selected.remaining <= 10 ? ` · plus que ${selected.remaining} pot${selected.remaining > 1 ? 's' : ''}` : '') : ''}
       </div>
 
@@ -120,7 +124,6 @@ export default function OrderForm(props: {
         </div>
         <div className="qty-total">
           <span className="qty-sum">{qty} × {euros(priceCents)} = <b>{euros(total)}</b></span>
-          <span className="qty-hint">max {maxPerOrder} par commande</span>
         </div>
       </div>
 
