@@ -5,7 +5,7 @@ email de confirmation envoyé depuis le **Gmail de Bakea**, et un **espace admin
 
 - `/` : la page publique (fiche produit, 3 photos, choix du jour de retrait, formulaire, paiement)
 - `/commande/<id>` : page de retour après paiement (vérifie le paiement, envoie le mail)
-- `/admin` : non lié depuis le site. Deux onglets :
+- `/adminzoo` : espace admin, non lié depuis le site. Deux onglets :
   - **Commandes** : tri sur chaque colonne, recherche, filtres statut / jour, statut *À récupérer → Terminé*,
     vérifier un paiement, renvoyer le mail, export CSV, totaux par jour
   - **Page & produit** : photos (visuel + 3 photos), textes, fiche produit, prix, stock par jour,
