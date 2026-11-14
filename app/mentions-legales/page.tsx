@@ -13,7 +13,7 @@ export default function Page() {
         RCS Paris <Todo>numéro</Todo> · SIRET <Todo>numéro</Todo><br />
         N° TVA intracommunautaire : <Todo>numéro</Todo><br />
         Directeur·rice de la publication : <Todo>Prénom Nom</Todo><br />
-        Contact : <a href="mailto:bakeacoffe@gmail.com">bakeacoffe@gmail.com</a>
+        Contact : <a href="mailto:bakeacoffee@gmail.com">bakeacoffee@gmail.com</a>
       </p>
       <h2>Hébergement</h2>
       <p>

@@ -155,5 +155,5 @@ create policy "images admin delete" on storage.objects for delete to authenticat
 -- =====================================================================
 -- Ajouter un admin : 1) Supabase > Authentication > Users > Add user (email + mot de passe)
 --                    2) puis exécuter (en remplaçant l'email) :
--- insert into public.admins (user_id) select id from auth.users where email = 'bakeacoffe@gmail.com';
+-- insert into public.admins (user_id) select id from auth.users where email = 'bakeacoffee@gmail.com';
 -- =====================================================================

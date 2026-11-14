@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <main className="narrow">
       <h1>Politique de confidentialité</h1>
-      <p>Responsable du traitement : <Todo>Raison sociale</Todo>, 3 rue de Lancry, 75010 Paris — <a href="mailto:bakeacoffe@gmail.com">bakeacoffe@gmail.com</a>.</p>
+      <p>Responsable du traitement : <Todo>Raison sociale</Todo>, 3 rue de Lancry, 75010 Paris — <a href="mailto:bakeacoffee@gmail.com">bakeacoffee@gmail.com</a>.</p>
       <h2>Données collectées</h2>
       <p>Lors d’une précommande : prénom, nom, adresse email, quantité et date de retrait. Les données de carte bancaire sont saisies directement chez Revolut et ne nous sont jamais transmises.</p>
       <h2>Pourquoi</h2>
@@ -16,7 +16,7 @@ export default function Page() {
       <h2>Destinataires</h2>
       <p>L’équipe Bakea et nos sous-traitants techniques : Supabase (base de données), Vercel (hébergement), Revolut (paiement), Google (envoi des emails).</p>
       <h2>Vos droits</h2>
-      <p>Vous pouvez accéder à vos données, les rectifier ou les supprimer, et vous opposer à leur traitement, en écrivant à <a href="mailto:bakeacoffe@gmail.com">bakeacoffe@gmail.com</a>. Vous pouvez aussi saisir la CNIL (cnil.fr).</p>
+      <p>Vous pouvez accéder à vos données, les rectifier ou les supprimer, et vous opposer à leur traitement, en écrivant à <a href="mailto:bakeacoffee@gmail.com">bakeacoffee@gmail.com</a>. Vous pouvez aussi saisir la CNIL (cnil.fr).</p>
       <h2>Cookies</h2>
       <p>Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience. Seuls des éléments strictement nécessaires au fonctionnement (paiement, espace admin) peuvent être déposés.</p>
     </main>

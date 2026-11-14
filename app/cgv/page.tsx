@@ -9,7 +9,7 @@ export default function Page() {
       <p><i>Version du 14 novembre 2026 — précommande « pâte à tartiner matcha ».</i></p>
 
       <h2>1. Vendeur</h2>
-      <p><Todo>Raison sociale</Todo>, enseigne Bakea, 3 rue de Lancry, 75010 Paris — SIRET <Todo>numéro</Todo> — <a href="mailto:bakeacoffe@gmail.com">bakeacoffe@gmail.com</a>.</p>
+      <p><Todo>Raison sociale</Todo>, enseigne Bakea, 3 rue de Lancry, 75010 Paris — SIRET <Todo>numéro</Todo> — <a href="mailto:bakeacoffee@gmail.com">bakeacoffee@gmail.com</a>.</p>
 
       <h2>2. Objet</h2>
       <p>Les présentes conditions encadrent la précommande en ligne de produits alimentaires Bakea, à retirer exclusivement en boutique. Passer commande implique leur acceptation.</p>
@@ -38,7 +38,7 @@ export default function Page() {
       <p>Voir notre <a href="/confidentialite">politique de confidentialité</a>.</p>
 
       <h2>10. Litiges et médiation</h2>
-      <p>En cas de litige, contactez-nous d’abord à bakeacoffe@gmail.com. À défaut d’accord, le client peut recourir gratuitement au médiateur de la consommation : <Todo>nom et site du médiateur auquel Bakea adhère</Todo>. Droit applicable : droit français.</p>
+      <p>En cas de litige, contactez-nous d’abord à bakeacoffee@gmail.com. À défaut d’accord, le client peut recourir gratuitement au médiateur de la consommation : <Todo>nom et site du médiateur auquel Bakea adhère</Todo>. Droit applicable : droit français.</p>
     </main>
   );
 }
