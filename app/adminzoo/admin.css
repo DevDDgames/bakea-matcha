@@ -54,3 +54,98 @@ textarea.input { min-height: 90px; resize: vertical; }
 .upload input { display: none; }
 .save-bar { position: sticky; bottom: 0; background: var(--cream); padding: 12px 0; display: flex; gap: 12px; align-items: center; border-top: 1px solid var(--line); margin-top: 20px; }
 .ok { color: var(--matcha); font-size: 14px; }
+
+/* ---------- Listes déroulantes : chevron propre ---------- */
+.admin select.input, .admin select.status {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%238a7a66' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 12px 8px;
+}
+.admin select.input { padding-right: 36px; background-color: #fff; }
+.admin select.status { padding-right: 26px; background-position: right 8px center; background-size: 10px 7px; }
+.toolbar .input { height: 40px; }
+.toolbar .small-btn { height: 40px; display: inline-flex; align-items: center; gap: 7px; }
+.small-btn:disabled { opacity: .6; cursor: default; }
+.spin { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Tri ---------- */
+table.orders th { cursor: default; padding: 0; }
+table.orders th.th-plain { padding: 9px 10px; }
+.th-btn {
+  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; width: 100%;
+  padding: 9px 10px; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
+}
+.th-btn:hover, .th-btn.on { color: var(--ink); }
+.th-btn:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; border-radius: 6px; }
+.sort-icon { flex: none; color: var(--muted); }
+.mobile-sort { display: none; }
+.icon-btn { width: 40px; justify-content: center; padding: 0; }
+.icon-btn .sort-icon { width: 12px; height: 16px; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+  .admin { padding: 0 12px 48px; }
+  .admin h1 { font-size: 26px; margin: 4px 0 12px; }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; }
+  .tabs { gap: 0; }
+  .tabs button { white-space: nowrap; padding: 10px 10px; font-size: 14px; }
+  .tabs .link-btn { white-space: nowrap; font-size: 13px; padding: 4px 2px; }
+  .tabs .who { display: none; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat { padding: 10px 12px; }
+  .stat b { font-size: 20px; }
+  .byday { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .byday button { flex: none; }
+
+  .toolbar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .toolbar .grow, .toolbar > select.input, .mobile-sort { grid-column: 1 / -1; min-width: 0; width: 100%; }
+  .mobile-sort { display: flex; gap: 8px; }
+  .mobile-sort select { flex: 1; min-width: 0; }
+  .toolbar .small-btn { justify-content: center; }
+
+  /* Le tableau devient une liste de cartes */
+  .table-wrap { background: none; border: 0; overflow: visible; }
+  table.orders, table.orders tbody { display: block; }
+  table.orders thead { display: none; }
+  table.orders tr {
+    display: grid; grid-template-columns: auto auto 1fr auto; gap: 4px 6px;
+    grid-template-areas: 'ref ref ref date' 'first last last last' 'email email email email' 'pickup pickup qty amount' 'status status status status' 'actions actions actions actions';
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 10px;
+  }
+  table.orders tr.empty { display: block; }
+  table.orders td { display: block; padding: 0; border: 0; white-space: normal; min-width: 0; }
+  table.orders td[data-label]::before {
+    content: attr(data-label); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted);
+  }
+  table.orders td.c-ref { grid-area: ref; font-size: 15px; }
+  table.orders td[data-label="Commandé le"] { grid-area: date; font-size: 12px; color: var(--muted); text-align: right; }
+  table.orders td[data-label="Prénom"] { grid-area: first; }
+  table.orders td[data-label="Nom"] { grid-area: last; }
+  table.orders td[data-label="Prénom"], table.orders td[data-label="Nom"] { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--ink); }
+  table.orders td.c-email { grid-area: email; overflow-wrap: anywhere; font-size: 14px; margin-bottom: 6px; }
+  table.orders td[data-label="Retrait"] { grid-area: pickup; }
+  table.orders td[data-label="Quantité"] { grid-area: qty; text-align: right; padding-right: 10px; }
+  table.orders td[data-label="Montant"] { grid-area: amount; text-align: right; }
+  table.orders td.c-ref::before, table.orders td[data-label="Commandé le"]::before,
+  table.orders td[data-label="Prénom"]::before, table.orders td[data-label="Nom"]::before,
+  table.orders td.c-email::before, table.orders td.c-status::before { display: none; }
+  table.orders td.c-status { grid-area: status; margin-top: 8px; }
+  table.orders td.c-status select { width: 100%; height: 40px; font-size: 15px; }
+  table.orders td.c-actions { grid-area: actions; text-align: center; }
+  table.orders td.c-actions:empty { display: none; }
+  table.orders td.c-actions .link-btn { padding: 6px 0; }
+
+  .uploads { gap: 8px; }
+  .save-bar { flex-wrap: wrap; }
+}
+
+/* ---------- Mot de passe : œil ---------- */
+.pwd { position: relative; margin-bottom: 10px; }
+.pwd .input { margin: 0; padding-right: 46px; }
+.pwd-eye {
+  position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px;
+  display: grid; place-items: center; border: 0; background: none; border-radius: 8px; color: var(--muted); cursor: pointer;
+}
+.pwd-eye:hover { color: var(--ink); background: rgba(42, 29, 18, .05); }
+.pwd-eye:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
