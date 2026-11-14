@@ -24,7 +24,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="topbar">
           <Link href="/" className="logo">bakea</Link>
           <nav className="topbar-right">
-            <a href="https://www.instagram.com/bakea.coffee" target="_blank" rel="noreferrer">Instagram ↗</a>
+            <a href="https://www.instagram.com/bakea.coffee" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Bakea (nouvel onglet)" title="@bakea.coffee">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+              </svg>
+            </a>
           </nav>
         </header>
         {children}

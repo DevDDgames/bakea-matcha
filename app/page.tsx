@@ -75,7 +75,7 @@ export default async function Home() {
 
         <div className="meta">
           <div className="meta-icon">
-            <div className="cal"><span>{monthName(s.start_date).slice(0, 4).toUpperCase()}.</span><span>{dayNum(s.start_date)}→{dayNum(s.end_date)}</span></div>
+            <div className="cal"><span>{monthName(s.start_date).slice(0, 3).toUpperCase()}.</span><span>{dayNum(s.start_date)}→{dayNum(s.end_date)}</span></div>
           </div>
           <div className="meta-text">
             <strong>Retrait du {longDate(s.start_date).replace(/^\S+ /, '')} au {longDate(s.end_date)}</strong>
