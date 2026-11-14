@@ -1,3 +1,4 @@
+import { COMPANY as C } from '@/lib/company';
 import Todo from '@/components/Todo';
 
 export const metadata = { title: 'Conditions générales de vente · Bakea' };
@@ -6,39 +7,43 @@ export default function Page() {
   return (
     <main className="narrow">
       <h1>Conditions générales de vente</h1>
-      <p><i>Version du 14 novembre 2026 — précommande « pâte à tartiner matcha ».</i></p>
+      <p><i>Précommandes en ligne · version du 14 novembre 2026</i></p>
 
       <h2>1. Vendeur</h2>
-      <p><Todo>Raison sociale</Todo>, enseigne Bakea, 3 rue de Lancry, 75010 Paris — SIRET <Todo>numéro</Todo> — <a href="mailto:bakeacoffee@gmail.com">bakeacoffee@gmail.com</a>.</p>
+      <p>{C.name}, {C.form}, {C.address} — {C.rcs} — <a href={`mailto:${C.email}`}>{C.email}</a>.</p>
 
-      <h2>2. Objet</h2>
-      <p>Les présentes conditions encadrent la précommande en ligne de produits alimentaires Bakea, à retirer exclusivement en boutique. Passer commande implique leur acceptation.</p>
+      <h2>2. Produits et prix</h2>
+      <p>
+        Les caractéristiques (ingrédients, allergènes, contenance, conservation) et le prix sont indiqués sur la page de
+        commande. Les prix sont en euros TTC. Maximum 10 pots par commande, dans la limite des stocks.
+      </p>
 
-      <h2>3. Produits</h2>
-      <p>Les caractéristiques essentielles (ingrédients, allergènes, contenance, conservation) sont indiquées dans la fiche produit, sur la page de commande. Les photos sont non contractuelles. L’offre est valable dans la limite des stocks disponibles par jour de retrait et de {10} pots maximum par commande.</p>
+      <h2>3. Commande et paiement</h2>
+      <p>
+        La commande est payée en ligne via Revolut (Revolut Pay, carte, Apple Pay, Google Pay). Elle est ferme dès le
+        paiement accepté ; un email de confirmation vous est alors envoyé.
+      </p>
 
-      <h2>4. Prix</h2>
-      <p>Les prix sont indiqués en euros toutes taxes comprises (TVA incluse). Aucun frais de livraison : le produit est à retirer en boutique.</p>
+      <h2>4. Retrait uniquement</h2>
+      <p>
+        Pas de livraison. La commande est à retirer chez Bakea, {C.address}, le jour choisi, aux horaires d’ouverture, sur
+        présentation de l’email de confirmation. Un empêchement ? Écrivez-nous, on trouvera une autre date.
+      </p>
 
-      <h2>5. Commande et paiement</h2>
-      <p>Le client choisit son jour de retrait, la quantité, indique ses coordonnées, accepte les CGV puis paie sur la page sécurisée de Revolut (Revolut Pay, carte bancaire, Apple Pay ou Google Pay). La commande n’est ferme qu’après acceptation du paiement ; un email de confirmation récapitulant la commande et la date de retrait est alors envoyé.</p>
+      <h2>5. Annulation et rétractation</h2>
+      <p>
+        Vous pouvez annuler gratuitement par email jusqu’à 48 h avant la date de retrait : vous êtes remboursé sous 14 jours.
+        S’agissant d’un produit alimentaire susceptible de se détériorer rapidement, le droit de rétractation ne s’applique
+        pas (art. L.221-28 du Code de la consommation).
+      </p>
 
-      <h2>6. Retrait — pas de livraison</h2>
-      <p>La commande est <b>uniquement à retirer</b> chez Bakea, 3 rue de Lancry, 75010 Paris, le jour choisi (parmi les dates proposées, du mardi au dimanche) aux horaires d’ouverture. Le client présente l’email de confirmation ou son numéro de commande. Aucune livraison ni envoi postal n’est possible.</p>
-      <p>En cas d’empêchement, contactez-nous : nous ferons notre possible pour décaler le retrait. Une commande non retirée <Todo>au plus tard le 31 décembre</Todo> sans nouvelle du client <Todo>reste due et n’est pas remboursée — à valider</Todo>.</p>
-
-      <h2>7. Annulation et droit de rétractation</h2>
-      <p>Le client peut annuler sa commande gratuitement par email jusqu’à <Todo>48 h</Todo> avant la date de retrait ; il est alors remboursé sous 14 jours sur sa carte.</p>
-      <p>Conformément à l’article L.221-28 4° du Code de la consommation, le droit de rétractation ne peut être exercé pour les denrées alimentaires susceptibles de se détériorer ou de se périmer rapidement, une fois le produit remis. <Todo>À valider selon la durée de conservation réelle du produit</Todo></p>
-
-      <h2>8. Conformité</h2>
-      <p>Le client vérifie la commande lors du retrait. Tout défaut doit être signalé à l’équipe sur place ou par email ; le produit sera alors échangé ou remboursé. Les garanties légales de conformité (art. L.217-3 et suivants du Code de la consommation) s’appliquent.</p>
-
-      <h2>9. Données personnelles</h2>
-      <p>Voir notre <a href="/confidentialite">politique de confidentialité</a>.</p>
-
-      <h2>10. Litiges et médiation</h2>
-      <p>En cas de litige, contactez-nous d’abord à bakeacoffee@gmail.com. À défaut d’accord, le client peut recourir gratuitement au médiateur de la consommation : <Todo>nom et site du médiateur auquel Bakea adhère</Todo>. Droit applicable : droit français.</p>
+      <h2>6. Réclamation et médiation</h2>
+      <p>
+        Un problème avec votre produit ? Signalez-le au café ou par email : il sera échangé ou remboursé. Les garanties
+        légales de conformité s’appliquent. En cas de litige non résolu, vous pouvez saisir gratuitement le médiateur de la
+        consommation :{' '}
+        {C.mediator.name ? <a href={C.mediator.url}>{C.mediator.name}</a> : <Todo>nom et site du médiateur</Todo>}. Droit français applicable.
+      </p>
     </main>
   );
 }
