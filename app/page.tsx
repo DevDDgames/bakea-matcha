@@ -4,6 +4,7 @@ import { dayNum, euros, longDate, monthName, OPENING_HOURS, pickupDays, weekday 
 import { SHOP } from '@/lib/types';
 import CoverArt from '@/components/CoverArt';
 import OrderForm, { DayOption } from '@/components/OrderForm';
+import MobileCta from '@/components/MobileCta';
 
 export const dynamic = 'force-dynamic';
 
@@ -74,32 +75,15 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       {/* ---------- Colonne gauche ---------- */}
       <aside className="side side-top">
-        <div className="cover">
+        <div className="cover o-1">
           {s.product_image_url ? <img src={s.product_image_url} alt={s.product_name} /> : <CoverArt />}
         </div>
 
-        <div className="side-section">
-          <h3>Retrait en boutique</h3>
-          <p>
-            {SHOP.address}, {SHOP.city}
-            <br />
-            Mar, mer, ven 9h–18h · Jeu 13h–18h
-            <br />
-            Sam 10h–18h30 · Dim 10h–18h
-            <br />
-            Fermé le lundi
-          </p>
-        </div>
-
-        <div className="tags">
-          <span className="tag"># Matcha</span>
-          <span className="tag"># Édition Noël</span>
-          <span className="tag"># Fait maison</span>
-        </div>
       </aside>
 
       {/* ---------- Colonne principale ---------- */}
       <section className="main-col">
+        <div className="o-2">
         <h1 className="title">
           {titleMain.trim()}
           {titleAt !== undefined && <> <em>@{titleAt.trim()}</em></>}
@@ -148,7 +132,9 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="section">
+        </div>
+
+        <div className="section o-5">
           <h2>Fiche produit</h2>
           <table className="spec">
             <tbody>
@@ -159,18 +145,31 @@ export default async function Home() {
           </table>
         </div>
 
-        <div className="section">
-          <h2>Lieu</h2>
-          <p style={{ margin: 0 }}>
-            <strong>Bakea</strong><br />
-            {SHOP.address}, {SHOP.city}<br />
-            <a href={SHOP.maps} target="_blank" rel="noreferrer" style={{ color: 'var(--orange)' }}>Ouvrir dans Maps ↗</a>
-          </p>
-        </div>
       </section>
 
       <aside className="side side-bottom">
-        <div className="section">
+        <div className="side-section o-6">
+          <h3>Retrait en boutique</h3>
+          <p>
+            {SHOP.address}, {SHOP.city}
+            <br />
+            Mar, mer, ven 9h–18h · Jeu 13h–18h
+            <br />
+            Sam 10h–18h30 · Dim 10h–18h
+            <br />
+            Fermé le lundi
+            <br />
+            <a href={SHOP.maps} target="_blank" rel="noopener noreferrer" className="maps-link">Ouvrir dans Maps ↗</a>
+          </p>
+        </div>
+
+        <div className="tags o-7">
+          <span className="tag"># Matcha</span>
+          <span className="tag"># Édition Noël</span>
+          <span className="tag"># Fait maison</span>
+        </div>
+
+        <div className="section o-3">
           <h2>À propos</h2>
           <div className="prose">
             {s.intro.split(/\n{2,}/).map((p, i) => <p key={i}>{p}</p>)}
@@ -178,7 +177,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="section">
+        <div className="section o-4">
           <h2>Photos</h2>
           <div className="gallery">
             {photos.map((url, i) =>
@@ -191,6 +190,8 @@ export default async function Home() {
           </div>
         </div>
       </aside>
+
+      {s.sales_open && days.some((d) => d.remaining > 0) && <MobileCta label={`Précommander · ${euros(s.price_cents)}`} />}
     </main>
   );
 }
