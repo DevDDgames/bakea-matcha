@@ -2,7 +2,7 @@
 export const COMPANY = {
   name: 'BAKEA',
   form: 'SAS',
-  capital: '', // ← à compléter (montant du capital social en €), voir Kbis
+  capital: '1 000',
   address: '3 rue de Lancry, 75010 Paris',
   siren: '941 979 585',
   siret: '941 979 585 00010',
